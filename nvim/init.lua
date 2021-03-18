@@ -3,7 +3,7 @@
 -- vim.api["source"]("legacy_config.vim")
 -- Plugins: https://github.com/wbthomason/packer.nvim
 vim.cmd [[packadd packer.nvim]]
-require('packer').startup(function()
+require('packer').startup(function(use)
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
 
@@ -12,6 +12,12 @@ require('packer').startup(function()
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
 
+  use {
+    'mattn/gist-vim',
+    requires = {{'mattn/webapi-vim'}}
+  }
+
+  use "svermeulen/vimpeccable" -- dsl for mappings
   use 'mhartington/oceanic-next'
   use 'elixir-editors/vim-elixir'
   use 'yukunlin/auto-pairs'
@@ -26,14 +32,35 @@ require('packer').startup(function()
   use 'mattn/emmet-vim'
   use 'othree/html5.vim'
   use 'neovim/nvim-lspconfig'
+  use 'rking/ag.vim'
+  use 'weierophinney/argumentrewrap'
+  use 'tpope/vim-eunuch'
+  use 'scrooloose/nerdtree'
+  use 'godlygeek/tabular'
+
+  -- ruby
+  use 'noprompt/vim-yardoc'
+  use 'hallison/vim-rdoc'
+
+  --     source ~/.vim/plugins/indentation-guides.vim
+  --     source ~/.vim/plugins/lightline.vim
+  --     source ~/.vim/plugins/syntastic.vim
+  --     source ~/.vim/plugins/ultisnipts.vim
+  --     source ~/.vim/plugins/vim-test.vim
+  --     " source ~/.vim/plugins/php.vim
+  --     source ~/.vim/plugins/ruby.vim
+  --     source ~/.vim/plugins/javascript.vim
+  --     " Plug 'airblade/vim-gitgutter'
+  --     " Plug 'slim-template/vim-slim'
+  --     " Plug 'jparise/vim-graphql'
+  --     Plug 'othree/html5.vim'
+  --
 end)
 
-require('lspconfig').solargraph.setup{
-  solargraph = {
-    diagnostics = false;
-    formatting = false;
-  }
-}
+-- ===============================================================================
+-- LSP
+-- ===============================================================================
+require('lspconfig').solargraph.setup{}
 
 vim.g.mapleader = " "
 vim.o.ignorecase = true
@@ -155,50 +182,6 @@ vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
 --
 -- if !filereadable(".vim-skip-plugins")
 --   call plug#begin('~/.vimplugged')
---     source ~/.vim/plugins/ag.vim
---     source ~/.vim/plugins/argumentrewrap.vim
---     source ~/.vim/plugins/eunuch.vim
---     source ~/.vim/plugins/fugitive.vim
---     source ~/.vim/plugins/fzf.vim
---     source ~/.vim/plugins/gist.vim
---     source ~/.vim/plugins/indentation-guides.vim
---     source ~/.vim/plugins/lightline.vim
---     source ~/.vim/plugins/nerdtree.vim
---     source ~/.vim/plugins/syntastic.vim
---     source ~/.vim/plugins/tabular.vim
---     source ~/.vim/plugins/ultisnipts.vim
---     source ~/.vim/plugins/vim-test.vim
---     source ~/.vim/plugins/vim-to-cterm.vim
---
---     " source ~/.vim/plugins/php.vim
---     source ~/.vim/plugins/ruby.vim
---     source ~/.vim/plugins/javascript.vim
---
---     Plug 'elixir-editors/vim-elixir'
---     Plug 'yukunlin/auto-pairs'          " fixed 'jiangmiao/auto-pairs'
---     " Plug 'endel/vim-github-colorscheme' " color
---     " Plug 'jonathanfilip/vim-lucius'     " color
---     " Plug 'chriskempson/base16-vim'      " color
---     " Plug 'nanotech/jellybeans.vim'      " color
---     Plug 'mhartington/oceanic-next'     " color
---     Plug 'Lokaltog/vim-easymotion'
---     " Plug 'airblade/vim-gitgutter'
---     Plug 'austintaylor/vim-commaobject'
---     " Plug 'joonty/vdebug'
---     Plug 'kana/vim-textobj-user'
---     Plug 'tomtom/tcomment_vim'
---     Plug 'tpope/vim-repeat'
---     Plug 'tpope/vim-speeddating'
---     Plug 'tpope/vim-surround'
---     " Plug 'slim-template/vim-slim'
---     Plug 'mechatroner/rainbow_csv'
---     Plug 'mattn/emmet-vim'
---     " Plug 'jparise/vim-graphql'
---     Plug 'othree/html5.vim'
---
---     if has('nvim')
---       Plug 'neovim/nvim-lspconfig'
---     endif
 --   call plug#end()
 -- end
 --

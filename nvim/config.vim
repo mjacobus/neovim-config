@@ -11,7 +11,7 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
 " LSP stuff
-setl omnifunc="v:lua.vim.lsp.omnifunc"
+set omnifunc="v:lua.vim.lsp.omnifunc"
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -21,6 +21,67 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+"
+" " Avoid showing message extra message when using completion
+set shortmess+=c
+
+" gist plugin
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+" use 'rking/ag.vim'
+" nnoremap g# :Ag! -w <C-R><C-W><space>
+nnoremap <leader>ag :Ag!<space>
+vnoremap <leader>ag y:Ag! '<C-R>"'
+nnoremap <leader>lag :Ag<up><cr>
+nnoremap <leader>ga :AgAdd!<space>
+nnoremap <leader>g# :Ag! -w <C-R><C-W><space>
+nnoremap <leader>gn :cnext<CR>
+nnoremap <leader>gp :cprev<CR>
+nnoremap <leader>gq :ccl<CR>
+nnoremap <leader>gl :cwindow<CR>
+
+" use 'weierophinney/argumentrewrap'
+nnoremap <leader>wa :call argumentrewrap#RewrapArguments()<CR>
+
+" Plugin tpope/vim-eunuch'
+nnoremap <leader>mv :Move<space>
+nnoremap <leader>rn :Rename<space>
+nnoremap <leader>rm :Delete<cr>
+
+" use 'scrooloose/nerdtree'
+let NERDTreeShowHidden=1
+nnoremap <c-n> :NERDTreeToggle<CR>
+
+" use 'godlygeek/tabular'
+function! CustomTabularPatterns()
+  if exists('g:tabular_loaded')
+    AddTabularPattern! symbols / :/l0
+    AddTabularPattern! hash /^[^>]*\zs=>/
+    AddTabularPattern! chunks / \S\+/l0
+    AddTabularPattern! assignment / = /l0
+    AddTabularPattern! comma /^[^,]*,/l1
+    AddTabularPattern! colon /:\zs /l0
+    AddTabularPattern! options_hashes /:\w\+ =>/
+  endif
+endfunction
+
+autocmd VimEnter * call CustomTabularPatterns()
+
+nnoremap <leader>a\| :Tabularize /\|<CR>
+vnoremap <leader>a\| :Tabularize /\|<CR>
+nnoremap <leader>a= :Tabularize /=<CR>
+vnoremap <leader>a= :Tabularize /=<CR>
+nnoremap <leader>a: :Tabularize /:\zs<CR>
+vnoremap <leader>a: :Tabularize /:\zs<CR>
+nnoremap <leader>ar :Tabularize /=><CR>
+vnoremap <leader>ar :Tabularize /=><CR>
 
 "===============================================================================
 " functions
@@ -653,3 +714,4 @@ endif
 if filereadable(".editor/project.vim")
   source .editor/project.vim
 endif
+

@@ -17,7 +17,10 @@ require('packer').startup(function(use)
     requires = {{'mattn/webapi-vim'}}
   }
 
-  use "svermeulen/vimpeccable" -- dsl for mappings
+  use  {
+    "svermeulen/vimpeccable"
+    -- requires = {{ 'svermeulen/vimpeccable-lua-vimrc-example', 'morhetz/gruvbox' }}
+  } -- dsl for mappings
   use 'mhartington/oceanic-next'
   use 'elixir-editors/vim-elixir'
   use 'yukunlin/auto-pairs'
@@ -76,6 +79,16 @@ vim.cmd([[colorscheme OceanicNext]])
 
 -- Fall back config
 vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
+
+require('vimp')
+vimp.nnoremap('<cr>', function(a, b)
+  name = vim.api.nvim_buf_get_name(0)
+
+  if string.find(name, "term://") then
+    vim.api.nvim_exec('buffer #', true)
+  end
+end)
+-- nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
 -- OLD CONFIG
 -- source ~/.vim/functions.vim

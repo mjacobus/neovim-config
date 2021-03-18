@@ -1,6 +1,18 @@
 " this are the configs that I mean to move to init.lua
 inoremap jj <ESC>:w<cr>
 
+
+set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+set noswapfile
+
+" Conditional settings
+set undodir=~/.nvimundodir
+set undofile
+
+if filewritable(&undodir) == 0
+  call mkdir(&undodir, "p")
+endif
+
 "  Telescope Plugin
 nnoremap <leader>p  <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -530,11 +542,8 @@ nnoremap <Leader>qq <ESC>:q<cr>
 nnoremap <Leader>rel :e<CR>
 
 " Open vim rc
-nnoremap <Leader>vim :vsplit ~/.vimrc<CR>
-nnoremap <Leader>vima :vsplit ~/.vim/abbreviations.vim<CR>
-nnoremap <Leader>vimf :vsplit ~/.vim/functions.vim<CR>
-nnoremap <Leader>vimm :vsplit ~/.vim/mappings.vim<CR>
-nnoremap <Leader>vimp :vsplit ~/.vim/plugins.vim<CR>
+nnoremap <Leader>vi :vsplit ~/.config/nvim/config.vim<CR>
+nnoremap <Leader>lvi :vsplit ~/.config/nvim/init.lua<CR>
 
 " vundle
 nnoremap <Leader>bi :BundleInstall<cr>
@@ -709,6 +718,10 @@ endif
 
 if filereadable(".project.vim")
   source .project.vim
+endif
+
+if filereadable(".project.lua")
+  luafile .project.lua
 endif
 
 if filereadable(".editor/project.vim")

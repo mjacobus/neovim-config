@@ -43,6 +43,8 @@ require('packer').startup(function(use)
   use 'noprompt/vim-yardoc'
   use 'hallison/vim-rdoc'
 
+  use 'pwntester/octo.nvim'
+
   --     source ~/.vim/plugins/indentation-guides.vim
   --     source ~/.vim/plugins/lightline.vim
   --     source ~/.vim/plugins/syntastic.vim

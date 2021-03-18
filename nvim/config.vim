@@ -10,6 +10,18 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 " returns to the previous buffer and closes all terminal buffers
 nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
+" LSP stuff
+setl omnifunc="v:lua.vim.lsp.omnifunc"
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
 "===============================================================================
 " functions
 "===============================================================================
@@ -389,10 +401,6 @@ inoremap jk <esc>
 tnoremap <esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
 
-" navigation
-noremap <leader>j 10j
-noremap <leader>k 10k
-
 " This mappings embraces my muscle memory while on ergodox
 nnoremap <backspace> =
 vnoremap <backspace> =
@@ -630,3 +638,18 @@ autocmd FileType c nnoremap <buffer> <leader>x <esc>:call CompileAndRunCurrentCF
 "===============================================================================
 autocmd FileType sh nnoremap <buffer> <leader>x <esc>:terminal ./%<cr>
 autocmd FileType zsh nnoremap <buffer> <leader>x <esc>:terminal ./%<cr>
+
+"===============================================================================
+" Allow overriding these settings:
+"===============================================================================
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
+if filereadable(".project.vim")
+  source .project.vim
+endif
+
+if filereadable(".editor/project.vim")
+  source .editor/project.vim
+endif

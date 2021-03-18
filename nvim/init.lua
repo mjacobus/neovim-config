@@ -25,7 +25,15 @@ require('packer').startup(function()
   use 'mechatroner/rainbow_csv'
   use 'mattn/emmet-vim'
   use 'othree/html5.vim'
+  use 'neovim/nvim-lspconfig'
 end)
+
+require('lspconfig').solargraph.setup{
+  solargraph = {
+    diagnostics = false;
+    formatting = false;
+  }
+}
 
 vim.g.mapleader = " "
 vim.o.ignorecase = true
@@ -208,17 +216,3 @@ vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
 -- hi Normal guibg=NONE ctermbg=NONE
 -- hi EndOfBuffer guibg=NONE ctermbg=NONE
 --
--- "===============================================================================
--- " Allow overriding these settings:
--- "===============================================================================
--- if filereadable(expand("~/.vimrc.local"))
---   source ~/.vimrc.local
--- endif
---
--- if filereadable(".project.vim")
---   source .project.vim
--- endif
---
--- if filereadable(".editor/project.vim")
---   source .editor/project.vim
--- endif

@@ -76,6 +76,7 @@ vim.o.background = "dark"
 vim.wo.number = true
 vim.wo.numberwidth = 2
 vim.cmd([[colorscheme OceanicNext]])
+vim.api.nvim_set_option('clipboard', 'unnamed')
 
 -- Fall back config
 vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)

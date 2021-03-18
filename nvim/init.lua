@@ -37,6 +37,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-eunuch'
   use 'scrooloose/nerdtree'
   use 'godlygeek/tabular'
+  -- use 'hrsh7th/vim-vsnip' -- check out
 
   -- ruby
   use 'noprompt/vim-yardoc'

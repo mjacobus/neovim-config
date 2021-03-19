@@ -17,6 +17,8 @@ require('packer').startup(function(use)
     requires = {{'mattn/webapi-vim'}}
   }
 
+  use { 'mjacobus/vim-snippets', requires = {{ 'sirver/ultisnips' }}}
+
   use  {
     "svermeulen/vimpeccable"
     -- requires = {{ 'svermeulen/vimpeccable-lua-vimrc-example', 'morhetz/gruvbox' }}
@@ -40,7 +42,14 @@ require('packer').startup(function(use)
   use 'tpope/vim-eunuch'
   use 'scrooloose/nerdtree'
   use 'godlygeek/tabular'
+  use 'tpope/vim-fugitive'
   -- use 'hrsh7th/vim-vsnip' -- check out
+
+  use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+
+  use {
+    'junegunn/fzf',  run = './install --all' 
+  }
 
   -- ruby
   use 'noprompt/vim-yardoc'
@@ -83,15 +92,22 @@ vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
 
 require('vimp')
 -- vimp.nnoremap('<cr>', function(a, b)
-vimp.nnoremap('<leader><leader>', function(a, b)
+vimp.nnoremap('<leader>j', function(a, b)
   name = vim.api.nvim_buf_get_name(0)
 
   if string.find(name, "term://") then
     vim.api.nvim_exec('buffer #', true)
   else
-    vim.api.nvim_exec('<cr>', true)
+    -- vim.api.nvim_exec('<cr>', true)
   end
 end)
+
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = { "vendor/*", "tmp/backup/**/*", "node_modules/*" }
+  }
+}
+
 -- nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
 -- OLD CONFIG

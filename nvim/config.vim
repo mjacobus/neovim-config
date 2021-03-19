@@ -4,6 +4,7 @@ inoremap jj <ESC>:w<cr>
 
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set noswapfile
+set splitright
 
 " Conditional settings
 set undodir=~/.nvimundodir
@@ -15,12 +16,33 @@ endif
 
 "  Telescope Plugin
 nnoremap <leader>p  <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+" use 'tpope/vim-fugitive'
+autocmd BufReadPost fugitive://* set bufhidden=delete
+nnoremap <Leader>gac :Gcommit -am ""<LEFT>
+nnoremap <Leader>gc :Gcommit -m ""<LEFT>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gb :Gblame<cr>
+
+" Resolving conflics
+" Vimcasts #33
+" also https://www.youtube.com/watch?v=PO6DxfGPQvw
+" nnoremap <leader>gd :Gdiff<cr>
+" " get target version: diff get target
+" nnoremap <leader>dgt :diffget //2 \| :diffupdate<cr>
+" " get branch version: diff get branch
+" nnoremap <leader>dgb :diffget //3 \| :diffupdate<cr>
+
+noremap <leader>g1 :diffget //1<CR>
+noremap <leader>gj :diffget //3<CR>
+noremap <leader>gf :diffget //2<CR>
 
 " returns to the previous buffer and closes all terminal buffers
-nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
+" nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
 
 " LSP stuff
 set omnifunc="v:lua.vim.lsp.omnifunc"
@@ -94,6 +116,21 @@ nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
 nnoremap <leader>ar :Tabularize /=><CR>
 vnoremap <leader>ar :Tabularize /=><CR>
+
+" use mjacobus/vim-snippets
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:snips_author="Marcelo Jacobus <marcelo.jacobus@gmail.com>"
+
+
+" use 'junegunn/fzf.vim'
+nnoremap <c-p> :FZF<cr>
+nnoremap <mleader>rm :Remove<cr>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 "===============================================================================
 " functions

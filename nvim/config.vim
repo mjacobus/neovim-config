@@ -6,6 +6,15 @@ set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set noswapfile
 set splitright
 
+autocmd BufWrite * :call <sid>MkdirsIfNotExists(expand("<afile>:h"))
+
+" TODO: find out why it wont work when the function is not herer
+function! <SID>MkdirsIfNotExists(directory)
+  if(!isdirectory(a:directory))
+    call system("mkdir -p ".shellescape(a:directory))
+  endif
+endfunction
+
 " Conditional settings
 set undodir=~/.nvimundodir
 set undofile
@@ -665,7 +674,7 @@ inoremap Ć Ç
 inoremap ,a â
 inoremap ,A Â
 
-nnoremap <leader>st <esc>:! clear && ./shell_test<cr>
+nnoremap <leader>st <esc>:terminal ./shell_test<cr>
 nnoremap <leader><leader>xx <esc>:! chmod +x %<cr>
 nnoremap <c-l> gt
 nnoremap <c-k> gt
@@ -677,9 +686,14 @@ nnoremap <c-j> gT
 "===============================================================================
 
 "===============================================================================
+" Lua
+"===============================================================================
+autocmd FileType lua nnoremap <buffer> <leader>x <esc>:terminal time lua %<cr>
+
+"===============================================================================
 " PHP
 "===============================================================================
-autocmd FileType php nnoremap <buffer> <leader>x <esc>:! clear && time php %<cr>
+autocmd FileType php nnoremap <buffer> <leader>x <esc>:terminal time php %<cr>
 autocmd FileType php nnoremap <buffer> <leader>av <esc>:call PHPOpenAlternativeFile()<cr>
 autocmd FileType php nnoremap <leader>cs  :call PhpFixCs('%')<cr>
 autocmd FileType php nnoremap <leader>dcs :call PhpFixCs('.')<cr>

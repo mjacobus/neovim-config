@@ -2,9 +2,19 @@
 inoremap jj <ESC>:w<cr>
 
 
+set tags+=./tags.vendors
+set tags+=tags-php
+set tags+=tags-ruby
+set tags+=tags-js
+set tags+=gems.tags
+
+
+set colorcolumn=80
+
 set expandtab tabstop=2 softtabstop=2 shiftwidth=2
 set noswapfile
 set splitright
+set splitbelow
 
 autocmd BufWrite * :call <sid>MkdirsIfNotExists(expand("<afile>:h"))
 
@@ -15,13 +25,6 @@ function! <SID>MkdirsIfNotExists(directory)
   endif
 endfunction
 
-" Conditional settings
-set undodir=~/.nvimundodir
-set undofile
-
-if filewritable(&undodir) == 0
-  call mkdir(&undodir, "p")
-endif
 
 "  Telescope Plugin
 nnoremap <leader>p  <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -779,3 +782,12 @@ if filereadable(".editor/project.vim")
   source .editor/project.vim
 endif
 
+"===============================================================================
+" Autocommands:
+"===============================================================================
+" remember last position in file
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+autocmd FileType gitcommit setlocal spell spelllang=en_us,pt_br
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us,pt_br
+autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us,pt_br

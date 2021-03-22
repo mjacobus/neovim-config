@@ -2,6 +2,9 @@
 
 set -e
 
+# Not sure if this works in Linux as well
+git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/packer.nvim
+
 TARGET_DIR=$HOME/.config/nvim
 
 REPO_FOLDER="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
@@ -15,3 +18,4 @@ if [ -d  $TARGET_DIR ]; then
 fi
 
 ln -sf $SOURCE_DIR $TARGET_DIR
+nvim +PackerInstall +q

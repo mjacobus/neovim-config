@@ -26,12 +26,6 @@ function! <SID>MkdirsIfNotExists(directory)
 endfunction
 
 
-"  Telescope Plugin
-nnoremap <leader>p  <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
-
 " use 'tpope/vim-fugitive'
 autocmd BufReadPost fugitive://* set bufhidden=delete
 nnoremap <Leader>gac :Gcommit -am ""<LEFT>

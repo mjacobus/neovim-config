@@ -54,9 +54,9 @@ require('packer').startup(function(use)
   -- ruby
   use 'noprompt/vim-yardoc'
   use 'hallison/vim-rdoc'
-
   use 'pwntester/octo.nvim'
 
+  -- Do I want them?
   --     source ~/.vim/plugins/indentation-guides.vim
   --     source ~/.vim/plugins/lightline.vim
   --     source ~/.vim/plugins/syntastic.vim
@@ -69,7 +69,6 @@ require('packer').startup(function(use)
   --     " Plug 'slim-template/vim-slim'
   --     " Plug 'jparise/vim-graphql'
   --     Plug 'othree/html5.vim'
-  --
 end)
 
 -- ===============================================================================
@@ -107,29 +106,3 @@ require('telescope').setup{
     file_ignore_patterns = { "vendor/*", "tmp/backup/**/*", "node_modules/*" }
   }
 }
-
--- nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
-
--- OLD CONFIG
--- source ~/.vim/functions.vim
--- source ~/.vim/abbreviations.vim
--- source ~/.vim/mappings.vim
---
--- set path+=**
--- set expandtab tabstop=2 softtabstop=2 shiftwidth=2
--- set guicursor=a:blinkon0
--- set hidden
--- set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
--- set mouse=""
--- set nobackup
--- set noswapfile
--- set nowrap
--- set number numberwidth=2
--- set showmatch
--- set wildignore+=*.so,*.swp,*.zip,*/build/*,*/coverage/*     " MacOSX/Linux
--- set wildmode=list:longest,full
---
---
---
---
--- " enable spell check

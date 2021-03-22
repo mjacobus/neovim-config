@@ -1,6 +1,7 @@
 " this are the configs that I mean to move to init.lua
 inoremap jj <ESC>:w<cr>
 
+set undofile
 
 set tags+=./tags.vendors
 set tags+=tags-php

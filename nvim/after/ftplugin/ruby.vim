@@ -1,7 +1,7 @@
 " Ruby old style hashes to new style hashes
 vnoremap <leader>h :s/:\(\w*\) *=>/\1:/g<cr>
 nnoremap <leader>x <esc>:terminal time ruby %<cr>
-nnoremap <leader>cs  :call RubocopFixCs('%')<cr>
+nnoremap <leader>cs  :call LintRuby()<cr>
 nnoremap <leader>dcs :call RubocopFixCs('.')<cr>
 nnoremap <leader>ccs :call ReekCodeSmell('%')<cr>
 nnoremap <leader>av :call OpenAlternateFile()<cr>
@@ -13,6 +13,10 @@ function! OpenAlternateFile()
   if !empty(file)
     execute "e " . file
   endif
+endfunction
+
+function! LintRuby()
+  call RubocopFixCs('%')
 endfunction
 
 function! RubocopFixCs(target)

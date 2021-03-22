@@ -1,5 +1,5 @@
-nnoremap <leader>cs :call RunLinters()<cr>
+nnoremap <leader>cs :call LintCss()<cr>
 
-function! RunLinters()
+function! LintCss()
   call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
 endfunction

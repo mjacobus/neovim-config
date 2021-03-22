@@ -1,13 +1,11 @@
 nnoremap <leader>x <esc>:terminal time node %<cr>
-nnoremap <leader>cs :call RunLinters()<cr>
-nnoremap <leader>js :call RunJsonLinters()<cr>
-nnoremap <leader>cs :call RunLinters()<cr>
+nnoremap <leader>cs :call LintJavascript()<cr>
+nnoremap <leader>js :call LintJson()<cr>
 
-function! RunLinters()
+function! LintJavascript()
   call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
 endfunction
 
-function! RunJsonLinters()
+function! LintJson()
   call ClearEchoAndExecute('prettify_json %')
 endfunction
-

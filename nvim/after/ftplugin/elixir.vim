@@ -1,7 +1,7 @@
 nnoremap <leader>x <esc>:terminal time elixir %<cr>
-nnoremap <leader>cs :call ElixirFixCs('%')<cr>
+nnoremap <leader>cs :call LintElixir('%')<cr>
 
-function! ElixirFixCs(target)
+function! LintElixir(target)
   let cmd = 'mix format '
   call ClearEchoAndExecute(cmd)
 endfunction

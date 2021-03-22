@@ -1,5 +1,5 @@
-nnoremap <leader>cs :call RunLinters()<cr>
+nnoremap <leader>cs :call LintScss()<cr>
 
-function! RunLinters()
+function! LintScss()
   call ClearEchoAndExecute('prettify_json %')
 endfunction

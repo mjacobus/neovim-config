@@ -35,8 +35,8 @@ require('packer').startup(function(use)
   use 'mechatroner/rainbow_csv'
   use 'mattn/emmet-vim'
   use 'othree/html5.vim'
-  use { 
-    'neovim/nvim-lspconfig', 
+  use {
+    'neovim/nvim-lspconfig',
     config = [[require('settings.lsp')]]
   }
   use 'nvim-lua/completion-nvim'
@@ -54,7 +54,11 @@ require('packer').startup(function(use)
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
 
   use {
-    'junegunn/fzf',  run = './install --all'
+    -- 'junegunn/fzf',  run = './install --all',
+    'junegunn/fzf',
+    run = [[ :call fzf#install() ]],
+    config = [[require('settings.fzf')]],
+    requires = { 'junegunn/fzf.vim' }
   }
 
   -- ruby

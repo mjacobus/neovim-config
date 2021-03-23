@@ -8,11 +8,11 @@ function ruby#OpenAlternateFile()
 endfunction
 
 function ruby#LintFile()
-  call RubocopFixCs('%')
+  call ruby#RubocopFixCs('%')
 endfunction
 
 " # not sure if it works
-function! RubocopFixCs(target)
+function! ruby#RubocopFixCs(target)
   let options=''
   let cmd = 'bundle exec rubocop'
 
@@ -28,7 +28,7 @@ function! RubocopFixCs(target)
   call ClearEchoAndExecute(full_command)
 endfunction
 
-function! ReekCodeSmell(target)
+function! ruby#ReekCodeSmell(target)
   let cmd = 'bundle exec reek'
 
   if filereadable('./bin/bundle')

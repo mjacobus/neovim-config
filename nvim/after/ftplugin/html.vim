@@ -1,5 +1,1 @@
-nnoremap <leader>cs :call LintHtml()<cr>
-
-function! LintHtml()
-  call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
-endfunction
+nnoremap <leader>cs :call html#LintFile()<cr>

@@ -1,5 +1,1 @@
-nnoremap <leader>cs :call LintScss()<cr>
-
-function! LintScss()
-  call ClearEchoAndExecute('prettify_json %')
-endfunction
+nnoremap <leader>cs :call scss#LintFile()<cr>

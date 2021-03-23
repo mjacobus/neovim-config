@@ -1,5 +1,2 @@
-nnoremap <leader>cs :call LintCss()<cr>
+nnoremap <leader>cs :call css#LintFile()<cr>
 
-function! LintCss()
-  call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
-endfunction

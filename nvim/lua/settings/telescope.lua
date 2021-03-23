@@ -1,3 +1,4 @@
+require('vimp')
 nnoremap = require('utils').nnoremap
 
 vimp.nnoremap('<leader>p', require('telescope.builtin').find_files)

@@ -3,7 +3,6 @@
 require('plugins')
 require('vimp')
 
-
 vim.g.mapleader = " "
 vim.o.ignorecase = true
 vim.o.smartcase = true

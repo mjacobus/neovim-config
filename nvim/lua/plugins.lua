@@ -35,7 +35,11 @@ require('packer').startup(function(use)
   use 'mechatroner/rainbow_csv'
   use 'mattn/emmet-vim'
   use 'othree/html5.vim'
-  use { 'neovim/nvim-lspconfig', config = [[require('settings.lsp')]] }
+  use { 
+    'neovim/nvim-lspconfig', 
+    config = [[require('settings.lsp')]]
+  }
+  use 'nvim-lua/completion-nvim'
   use 'rking/ag.vim'
   use 'weierophinney/argumentrewrap'
   use 'tpope/vim-eunuch'

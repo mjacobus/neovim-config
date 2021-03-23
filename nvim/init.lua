@@ -15,7 +15,7 @@ vim.api.nvim_set_option('clipboard', 'unnamed')
 
 vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
 
-vimp.nnoremap('<leader>j', function(a, b)
+vimp.nnoremap('<leader>j', function()
   name = vim.api.nvim_buf_get_name(0)
 
   if string.find(name, "term://") then

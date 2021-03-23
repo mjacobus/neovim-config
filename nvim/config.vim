@@ -26,24 +26,6 @@ function! <SID>MkdirsIfNotExists(directory)
   endif
 endfunction
 
-
-
-" Resolving conflics
-" Vimcasts #33
-" also https://www.youtube.com/watch?v=PO6DxfGPQvw
-" nnoremap <leader>gd :Gdiff<cr>
-" " get target version: diff get target
-" nnoremap <leader>dgt :diffget //2 \| :diffupdate<cr>
-" " get branch version: diff get branch
-" nnoremap <leader>dgb :diffget //3 \| :diffupdate<cr>
-
-noremap <leader>g1 :diffget //1<CR>
-noremap <leader>gj :diffget //3<CR>
-noremap <leader>gf :diffget //2<CR>
-
-" returns to the previous buffer and closes all terminal buffers
-" nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
-
 " LSP stuff
 set omnifunc="v:lua.vim.lsp.omnifunc"
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>

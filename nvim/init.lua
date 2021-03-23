@@ -1,10 +1,8 @@
-require('plugins')
 -- https://github.com/nanotee/nvim-lua-guide
 
--- ===============================================================================
--- LSP
--- ===============================================================================
-require('lspconfig').solargraph.setup{}
+require('plugins')
+require('vimp')
+
 
 vim.g.mapleader = " "
 vim.o.ignorecase = true
@@ -16,11 +14,8 @@ vim.wo.wrap = false
 vim.cmd([[colorscheme OceanicNext]])
 vim.api.nvim_set_option('clipboard', 'unnamed')
 
--- Fall back config
 vim.api.nvim_exec("source ~/.config/nvim/config.vim", true)
 
-require('vimp')
--- vimp.nnoremap('<cr>', function(a, b)
 vimp.nnoremap('<leader>j', function(a, b)
   name = vim.api.nvim_buf_get_name(0)
 
@@ -30,9 +25,3 @@ vimp.nnoremap('<leader>j', function(a, b)
     -- vim.api.nvim_exec('<cr>', true)
   end
 end)
-
-require('telescope').setup{
-  defaults = {
-    file_ignore_patterns = { "vendor/*", "tmp/backup/**/*", "node_modules/*" }
-  }
-}

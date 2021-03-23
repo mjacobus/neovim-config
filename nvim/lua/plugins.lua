@@ -41,7 +41,10 @@ require('packer').startup(function(use)
   use 'tpope/vim-eunuch'
   use 'scrooloose/nerdtree'
   use 'godlygeek/tabular'
-  use 'tpope/vim-fugitive'
+  use {
+    'tpope/vim-fugitive',
+    config = [[require('settings.fugitive')]]
+  }
   -- use 'hrsh7th/vim-vsnip' -- check out
 
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}

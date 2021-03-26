@@ -28,3 +28,5 @@ fi
 
 ln -sf $SOURCE_DIR $TARGET_DIR
 nvim +PackerInstall +q
+
+npm i -g bash-language-server

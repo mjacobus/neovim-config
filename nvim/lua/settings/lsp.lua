@@ -6,6 +6,7 @@ nnoremap = utils.nnoremap
 
 config.solargraph.setup{ on_attach = completion }
 config.tsserver.setup{ on_attach = completion }
+config.bashls.setup{}
 
 config.sumneko_lua.setup{}
 

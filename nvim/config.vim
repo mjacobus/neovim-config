@@ -1,6 +1,7 @@
 " this are the configs that I mean to move to init.lua
 inoremap jj <ESC>:w<cr>
 
+set undofile
 
 set tags+=./tags.vendors
 set tags+=tags-php
@@ -25,37 +26,6 @@ function! <SID>MkdirsIfNotExists(directory)
   endif
 endfunction
 
-
-"  Telescope Plugin
-nnoremap <leader>p  <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
-
-" use 'tpope/vim-fugitive'
-autocmd BufReadPost fugitive://* set bufhidden=delete
-nnoremap <Leader>gac :Gcommit -am ""<LEFT>
-nnoremap <Leader>gc :Gcommit -m ""<LEFT>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>gb :Gblame<cr>
-
-" Resolving conflics
-" Vimcasts #33
-" also https://www.youtube.com/watch?v=PO6DxfGPQvw
-" nnoremap <leader>gd :Gdiff<cr>
-" " get target version: diff get target
-" nnoremap <leader>dgt :diffget //2 \| :diffupdate<cr>
-" " get branch version: diff get branch
-" nnoremap <leader>dgb :diffget //3 \| :diffupdate<cr>
-
-noremap <leader>g1 :diffget //1<CR>
-noremap <leader>gj :diffget //3<CR>
-noremap <leader>gf :diffget //2<CR>
-
-" returns to the previous buffer and closes all terminal buffers
-" nnoremap  <leader>j :buffer #<cr>:bd! term://<cr>
-
 " LSP stuff
 set omnifunc="v:lua.vim.lsp.omnifunc"
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -71,9 +41,6 @@ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-"
 " " Avoid showing message extra message when using completion
 set shortmess+=c
 
@@ -176,216 +143,6 @@ function! TrimWhiteSpace()
   call cursor(l, c)
 endfunction
 
-function! PHPUnit(args)
-  let expected_config_file = fnamemodify('tests/phpunit.xml', ':p')
-  let config_param = ''
-
-  if filereadable(expected_config_file)
-    let config_param = ' -c ' . expected_config_file
-  endif
-
-  let cmd = "phpunit " . config_param . " " . a:args
-  execute "! clear && echo '" . cmd . "' && " . cmd
-endfunction
-
-function! PHPUnitCurrentFile()
-  " if file is test run file
-  " else run test file
-  let file = expand('%')
-  let parts = split(file, 'Test')
-
-  if len(parts) > 1
-    :call PHPUnit("%")
-  else
-    :call PHPUnit(PHPUnitGetTestFileFor(file))
-  endif
-endfunction
-
-function! PHPUnitGetTestFileFor(file)
-  let file = fnamemodify(a:file, ':p')
-  let test_file = split(file, ".php")[0] . 'Test.php'
-  let test_file = substitute(test_file, "/src/", "/tests/", "")
-  let test_file = substitute(test_file, "/lib/", "/tests/", "")
-  let test_file = substitute(test_file, "/library/", "/tests/", "")
-  let parts = split(test_file, "/tests/")
-
-  let after_test_folder_parts = split(parts[1], "/")
-
-  " prefix or not to prefix test to the folder ?
-  let test_sufixed_folder = after_test_folder_parts[0] . 'Test'
-
-  if isdirectory(parts[0] . '/tests/' . test_sufixed_folder)
-    let after_test_folder_parts[0] = test_sufixed_folder
-  endif
-
-  if isdirectory(parts[0] . '/test/' . test_sufixed_folder)
-    let after_test_folder_parts[0] = test_sufixed_folder
-  endif
-
-  let parts[1] = join(after_test_folder_parts, "/")
-
-  let test_file = join(parts, "/tests/")
-
-  " sometimes the test folder is test instead of tests
-  if !isdirectory(parts[0] . "/tests")
-    let test_file = join(parts, "/test/")
-  endif
-
-  return  test_file
-endfunction
-
-function! PHPGetAternativeFile(file)
-  let currentFile = a:file
-
-  if !empty(matchstr(currentFile, 'test\(s\)\?\/*.*Test.php$'))
-    let file = PHPGetTestedFileFor(currentFile)
-
-    if !filereadable(file)
-      return
-    end
-  else
-    let file = PHPUnitGetTestFileFor(currentFile)
-  endif
-
-  return file
-endfunction
-
-function! PHPOpenVAlternativeFile()
-  let file = PHPGetAternativeFile(expand("%"))
-  if !empty(file)
-    execute "vsplit " . file
-  endif
-endfunction
-
-function! PHPOpenAlternativeFile()
-  let file = PHPGetAternativeFile(expand("%"))
-  if !empty(file)
-    execute "e " . file
-  endif
-endfunction
-
-function! PHPUnitCreateTestFile()
-  let test_file = PHPUnitGetTestFileFor(expand("%"))
-  execute "vsplit " . test_file
-endfunction
-
-function! PHPUnitAll()
-  :call PHPUnit("")
-endfunction
-
-function! PHPUnitFocused()
-  :call PHPUnit("--group=focus")
-endfunction
-
-function! PHPUnitZendModule()
-  let module = ZendGetModuleName()
-  let phpunit = 'phpunit'
-  let vendorPhpunit = './vendor/bin/phpunit'
-
-  if filereadable(vendorPhpunit)
-    let phpunit = vendorPhpunit
-  endif
-
-  let cmd = phpunit . " -c module/" . module . "/tests/phpunit.xml"
-  execute "! clear && echo '" . cmd . "' && " . cmd
-endfunction
-
-function! VOpenTestedFile()
-  let test_file = PHPGetTestedFileFor(expand("%"))
-  execute "vsplit " . test_file
-endfunction
-
-function! PHPGetTestedFileFor(test_file)
-  let file = a:test_file
-  let file = substitute(file, "/tests/", "/src/", "gI")
-  let file = substitute(file, "/test/", "/src/", "gI")
-  let file = substitute(file, "Test/", "/", "gI")
-  let file = substitute(file, "Test.php", ".php", "gI")
-  let file = substitute(file, "tests/", "src/", "gI")
-  let file = substitute(file, "test/", "src/", "gI")
-
-  if filereadable(file)
-    return file
-  endif
-
-  let file = substitute(file, "/src/", "/lib/", "gI")
-
-  if filereadable(file)
-    return file
-  endif
-
-
-  let file = substitute(file, "/lib/", "/library/", "gI")
-
-  if filereadable(file)
-    return file
-  endif
-
-  echo "file not found: '" . file . "'"
-endfunction
-
-
-function! ZendGetModuleName()
-  return split(split(expand('%'),'module/')[0], '/')[0]
-endfunction
-
-function! Prettier()
-  call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
-endfunction
-
-function! PrettifyJson()
-  call ClearEchoAndExecute('prettify_json %')
-endfunction
-
-function! PhpFixCs(target)
-  " let cmd = '~/.dotfiles/composer/vendor/bin/./php-cs-fixer fix'
-  " let options = '--level=symfony --fixers=-concat_without_spaces,-return,unused_use,align_double_arrow,phpdoc_indent,-phpdoc_short_description'
-  let options = ''
-  let cmd = '~/.dotfiles/composer/vendor/bin/./bro-code fix'
-
-  if filereadable('vendor/bin/php-cs-fixer')
-    let cmd = './vendor/bin/php-cs-fixer fix'
-  endif
-
-  if filereadable('vendor/bin/bro-code')
-    let cmd = './vendor/bin/bro-code fix'
-  endif
-
-  let full_command = cmd . " " . a:target . " " . options
-  call ClearEchoAndExecute(full_command)
-endfunction
-
-function! ElixirFixCs(target)
-  let cmd = 'mix format '
-  call ClearEchoAndExecute(cmd)
-endfunction
-
-function! RubocopFixCs(target)
-  let options=''
-  let cmd = 'bundle exec rubocop'
-
-  if filereadable('./bin/bundle')
-    let cmd = './bin/bundle exec rubocop'
-  endif
-
-  if filereadable('.rubocop.yml')
-    let options = ' --config=.rubocop.yml '
-  endif
-
-  let full_command = cmd . " -a " . options . a:target
-  call ClearEchoAndExecute(full_command)
-endfunction
-
-function! ReekCodeSmell(target)
-  let cmd = 'bundle exec reek'
-
-  if filereadable('./bin/bundle')
-    let cmd = './bin/bundle exec reek'
-  endif
-  let full_command = cmd . " " . a:target
-  call ClearEchoAndExecute(full_command)
-endfunction
-
 function! ClearEchoAndExecute(command)
   let cmd = "! clear && echo '" . a:command . "' && " . a:command
 
@@ -396,114 +153,12 @@ function! ClearEchoAndExecute(command)
   execute cmd
 endfunction
 
-function! CompileAndRunCurrentCFile()
-  let file = expand('%')
-  let binary = substitute(file, "\.c$", ".o", "")
-  let command = "gcc " . file . " -o " . binary . " && ./" . binary
-  call ExecuteCommand(command)
-endfunction
-
 function! ExecuteCommand(command)
   execute "! clear && echo '" . a:command . "'" . " && " . a:command
 endfunction
 
-function! SetChefTest()
-  execute ":nnoremap <buffer> <leader>t :call ExecuteCommand('chef exec rspec %')<cr>"
-endfunction
 
-function! RubyGetAternativeFile(file)
-  let currentFile = a:file
 
-  if !empty(matchstr(currentFile, '\(test\|spec\)\(s\)\?\/*.*_\(test\|spec\).rb$'))
-    let file = RubyGetTestedFileFor(currentFile)
-
-    if !filereadable(file)
-      return
-    end
-  else
-    let file = RubyUnitGetTestFileFor(currentFile)
-  endif
-
-  return file
-endfunction
-
-function! RubyOpenVAlternativeFile()
-  let file = RubyGetAternativeFile(expand("%"))
-  if !empty(file)
-    execute "vsplit " . file
-  endif
-endfunction
-
-function! RubyUnitGetTestFileFor(file)
-  let file = fnamemodify(a:file, ':p')
-  let test_file = split(file, ".rb")[0] . '_test.rb'
-  let test_file = substitute(test_file, "/src/", "/tests/", "")
-  let test_file = substitute(test_file, "/lib/", "/tests/", "")
-  let test_file = substitute(test_file, "/library/", "/tests/", "")
-  let parts = split(test_file, "/tests/")
-
-  let after_test_folder_parts = split(parts[1], "/")
-
-  " prefix or not to prefix test to the folder ?
-  let test_sufixed_folder = after_test_folder_parts[0] . 'Test'
-
-  if isdirectory(parts[0] . '/tests/' . test_sufixed_folder)
-    let after_test_folder_parts[0] = test_sufixed_folder
-  endif
-
-  if isdirectory(parts[0] . '/test/' . test_sufixed_folder)
-    let after_test_folder_parts[0] = test_sufixed_folder
-  endif
-
-  let parts[1] = join(after_test_folder_parts, "/")
-
-  let test_file = join(parts, "/tests/")
-
-  " sometimes the test folder is test instead of tests
-  if !isdirectory(parts[0] . "/tests")
-    let test_file = join(parts, "/test/")
-  endif
-
-  echo  test_file
-  " return  test_file
-endfunction
-
-function! RubyGetTestedFileFor(test_file)
-  let file = a:test_file
-  let file = substitute(file, "/tests/", "/lib/", "gI")
-  let file = substitute(file, "/test/", "/lib/", "gI")
-  let file = substitute(file, "_spec.rb", ".rb", "gI")
-  let file = substitute(file, "_test.rb", ".rb", "gI")
-
-  if filereadable(file)
-    return file
-  endif
-
-  let file = substitute(file, "/lib/", "/src/", "gI")
-
-  if filereadable(file)
-    return file
-  endif
-
-  echo "file not found: '" . file . "'"
-endfunction
-
-function! FixColors()
-  highlight ColorColumn ctermbg=235
-  highlight vertsplit guifg=white guibg=black ctermbg=none
-  highligh MatchParen cterm=bold ctermbg=none ctermfg=green
-  highligh! def link phpDocTags  phpDefine
-  highligh! def link phpDocParam phpType
-endfunction
-
-function! OpenAlternateFile()
-  " Need to update dotfiled
-  let file = system('dotfiled ' . expand('%'))
-  " let file = system('alternative_file ' . expand('%'))
-  if !empty(file)
-    execute "e " . file
-  endif
-endfunction
 
 "===============================================================================
 " Mappings
@@ -579,8 +234,6 @@ inoremap ,e <Esc>/[\]})"']<cr><Esc>:nohlsearch<cr>a
 " adds arrow
 inoremap <C-l> <Space>=><Space>
 
-" Ruby old style hashes to new style hashes
-vnoremap <leader>h :s/:\(\w*\) *=>/\1:/g<cr>
 
 " Rails specific
 " nnoremap <Leader>ac :sp app/controllers/application_controller.rb<cr>
@@ -688,74 +341,10 @@ nnoremap <c-j> gT
 " Language specific
 "===============================================================================
 
-"===============================================================================
-" Lua
-"===============================================================================
-autocmd FileType lua nnoremap <buffer> <leader>x <esc>:terminal time lua %<cr>
-
-"===============================================================================
-" PHP
-"===============================================================================
-autocmd FileType php nnoremap <buffer> <leader>x <esc>:terminal time php %<cr>
-autocmd FileType php nnoremap <buffer> <leader>av <esc>:call PHPOpenAlternativeFile()<cr>
-autocmd FileType php nnoremap <leader>cs  :call PhpFixCs('%')<cr>
-autocmd FileType php nnoremap <leader>dcs :call PhpFixCs('.')<cr>
-autocmd FileType php inoremap <buffer> <C-.> .
-autocmd FileType php inoremap <buffer> ... ../
-autocmd FileType php inoremap <buffer> .. ->
-let s:keys = [
-  \ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-  \ 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '_'
-  \ ]
-for key in s:keys
-  exe 'autocmd Filetype php inoremap <buffer> .' . key . ' ->' . key
-endfor
-autocmd FileType php inoremap <buffer> ;; <esc>$a;
-
-"===============================================================================
-" Phython
-"===============================================================================
-autocmd FileType python nnoremap <buffer> <leader>x <esc>:terminal time python %<cr>
-
-"===============================================================================
-" Ruby
-"===============================================================================
-autocmd FileType ruby nnoremap <buffer> <leader>x <esc>:terminal time ruby %<cr>
-autocmd FileType ruby nnoremap <buffer> <leader>cs  :call RubocopFixCs('%')<cr>
-autocmd FileType ruby nnoremap <buffer> <leader>dcs :call RubocopFixCs('.')<cr>
-autocmd FileType ruby nnoremap <buffer> <leader>ccs :call ReekCodeSmell('%')<cr>
-autocmd FileType ruby nnoremap <buffer> <leader>av :call OpenAlternateFile()<cr>
-
-"===============================================================================
-" Elixir
-"===============================================================================
-autocmd FileType elixir nnoremap <buffer> <leader>x <esc>:terminal time elixir %<cr>
-autocmd FileType elixir nnoremap <buffer> <leader>cs :call ElixirFixCs('%')<cr>
-
-"===============================================================================
-" Javascript
-"===============================================================================
-autocmd FileType javascript nnoremap <buffer> <leader>x <esc>:terminal time node %<cr>
-autocmd FileType javascript nnoremap <buffer> <leader>cs :call Prettier()<cr>
-autocmd FileType javascript nnoremap <buffer> <leader>js :call PrettifyJson()<cr>
-autocmd FileType json nnoremap <buffer> <leader>cs :call PrettifyJson()<cr>
-
-"===============================================================================
-" css
-"===============================================================================
-autocmd FileType css nnoremap <buffer> <leader>cs :call Prettier()<cr>
-autocmd FileType sass nnoremap <buffer> <leader>cs :call Prettier()<cr>
-autocmd FileType scss nnoremap <buffer> <leader>cs :call Prettier()<cr>
-
-"===============================================================================
-" html
-"===============================================================================
-autocmd FileType html nnoremap <buffer> <leader>cs :call Prettier()<cr>
 
 "===============================================================================
 " C
 "===============================================================================
-autocmd FileType c nnoremap <buffer> <leader>x <esc>:call CompileAndRunCurrentCFile()<cr>
 
 "===============================================================================
 " BASH

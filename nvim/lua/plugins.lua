@@ -51,7 +51,10 @@ require('packer').startup(function(use)
   }
   -- use 'hrsh7th/vim-vsnip' -- check out
 
-  use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+  use { 
+    'iamcco/markdown-preview.nvim', 
+    run = 'cd app && npm install'
+  }
 
   use {
     -- 'junegunn/fzf',  run = './install --all',

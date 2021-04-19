@@ -11,6 +11,8 @@ config.denols.setup{}
 
 config.sumneko_lua.setup{}
 
+config.gopls.setup{}
+
 -- Autocomplete
 vim.api.nvim_command('set completeopt=menuone,noinsert,noselect')
 vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}

@@ -16,7 +16,7 @@ require('packer').startup(function(use)
     requires = {{'mattn/webapi-vim'}}
   }
 
-  use { 'mjacobus/vim-snippets', requires = {{ 'sirver/ultisnips' }}}
+  -- use { 'mjacobus/vim-snippets', requires = {{ 'sirver/ultisnips' }}}
 
   use  {
     "svermeulen/vimpeccable"

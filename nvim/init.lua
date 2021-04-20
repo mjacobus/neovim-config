@@ -2,9 +2,7 @@
 
 require('plugins')
 require('vimp')
-
-DATA_PATH = vim.fn.stdpath('data')
-CACHE_PATH = vim.fn.stdpath('cache')
+require('globals')
 
 vim.g.mapleader = " "
 vim.o.ignorecase = true

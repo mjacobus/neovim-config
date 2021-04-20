@@ -4,10 +4,21 @@ utils = require('utils')
 inoremap = utils.inoremap
 nnoremap = utils.nnoremap
 
+-- Ruby
 config.solargraph.setup{ on_attach = completion }
+-- Type script
 config.tsserver.setup{ on_attach = completion }
+-- Bash
 config.bashls.setup{}
+
+-- Javascript, I think https://github.com/denoland/deno
 config.denols.setup{}
+
+-- Golang
+config.gopls.setup{
+    cmd = {DATA_PATH .. "/lspinstall/go/gopls"},
+    on_attach = require'lsp'.common_on_attach
+}
 
 config.sumneko_lua.setup{}
 
@@ -43,3 +54,4 @@ vimp.nnoremap('<leader>dr', function()
   require('lspconfig').solargraph.setup{ on_attach = disable_warnings }
   print('Annoying warnings disabled')
 end)
+

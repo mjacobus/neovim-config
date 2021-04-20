@@ -3,6 +3,9 @@
 require('plugins')
 require('vimp')
 
+DATA_PATH = vim.fn.stdpath('data')
+CACHE_PATH = vim.fn.stdpath('cache')
+
 vim.g.mapleader = " "
 vim.o.ignorecase = true
 vim.o.hidden = true
@@ -25,3 +28,4 @@ vimp.nnoremap('<leader>j', function()
     -- vim.api.nvim_exec('<cr>', true)
   end
 end)
+

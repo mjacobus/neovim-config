@@ -18,6 +18,12 @@ require('packer').startup(function(use)
 
   -- use { 'mjacobus/vim-snippets', requires = {{ 'sirver/ultisnips' }}}
 
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    requires = {{ 'Yggdroot/indentLine' }},
+    config = [[require('settings.indentline')]]
+  }
+
   use  {
     "svermeulen/vimpeccable"
     -- requires = {{ 'svermeulen/vimpeccable-lua-vimrc-example', 'morhetz/gruvbox' }}

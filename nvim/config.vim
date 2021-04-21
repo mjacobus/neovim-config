@@ -70,7 +70,7 @@ nnoremap <leader>rm :Delete<cr>
 
 " use 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
-nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <c-N> :NERDTreeToggle<CR>
 
 " use 'godlygeek/tabular'
 function! CustomTabularPatterns()

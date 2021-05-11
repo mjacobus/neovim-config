@@ -38,8 +38,8 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " " Avoid showing message extra message when using completion
 set shortmess+=c
@@ -70,7 +70,7 @@ nnoremap <leader>rm :Delete<cr>
 
 " use 'scrooloose/nerdtree'
 let NERDTreeShowHidden=1
-nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <c-N> :NERDTreeToggle<CR>
 
 " use 'godlygeek/tabular'
 function! CustomTabularPatterns()

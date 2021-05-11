@@ -18,6 +18,12 @@ require('packer').startup(function(use)
 
   use { 'mjacobus/vim-snippets', requires = {{ 'sirver/ultisnips' }}}
 
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    requires = {{ 'Yggdroot/indentLine' }},
+    config = [[require('settings.indentline')]]
+  }
+
   use  {
     "svermeulen/vimpeccable"
     -- requires = {{ 'svermeulen/vimpeccable-lua-vimrc-example', 'morhetz/gruvbox' }}
@@ -51,7 +57,10 @@ require('packer').startup(function(use)
   }
   -- use 'hrsh7th/vim-vsnip' -- check out
 
-  use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+  use { 
+    'iamcco/markdown-preview.nvim', 
+    run = 'cd app && npm install'
+  }
 
   use {
     -- 'junegunn/fzf',  run = './install --all',

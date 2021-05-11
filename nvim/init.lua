@@ -2,6 +2,7 @@
 
 require('plugins')
 require('vimp')
+require('globals')
 
 vim.g.mapleader = " "
 vim.o.ignorecase = true
@@ -25,3 +26,4 @@ vimp.nnoremap('<leader>j', function()
     -- vim.api.nvim_exec('<cr>', true)
   end
 end)
+

@@ -8,6 +8,7 @@ vim.g.mapleader = " "
 vim.o.ignorecase = true
 vim.o.hidden = true
 vim.o.smartcase = true
+vim.o.hidden = true
 vim.o.background = "dark"
 vim.wo.number = true
 vim.wo.numberwidth = 2

@@ -27,4 +27,3 @@ vimp.nnoremap('<leader>j', function()
     -- vim.api.nvim_exec('<cr>', true)
   end
 end)
-

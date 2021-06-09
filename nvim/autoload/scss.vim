@@ -1,3 +1,3 @@
 function! scss#LintFile()
-  call ClearEchoAndExecute('prettify_json %')
+  call ClearEchoAndExecute('./node_modules/.bin/prettier --write %')
 endfunction

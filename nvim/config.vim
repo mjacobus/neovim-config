@@ -193,7 +193,7 @@ nnoremap <leader><leader>b :b<space>
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bdd :bd!<cr>
 nnoremap <leader>bda :bufdo %bd!<cr>
-nnoremap <leader>n :NERDTree<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 " search
 " nnoremap * :keepjumps normal *``<cr>

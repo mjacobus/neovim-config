@@ -28,6 +28,7 @@ require('packer').startup(function(use)
     "svermeulen/vimpeccable"
     -- requires = {{ 'svermeulen/vimpeccable-lua-vimrc-example', 'morhetz/gruvbox' }}
   } -- dsl for mappings
+  use 'thalesmello/lkml.vim'
   use 'mhartington/oceanic-next'
   use 'elixir-editors/vim-elixir'
   use 'yukunlin/auto-pairs'

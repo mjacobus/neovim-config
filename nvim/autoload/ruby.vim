@@ -24,7 +24,7 @@ function! ruby#RubocopFixCs(target)
     let options = ' --config=.rubocop.yml '
   endif
 
-  let full_command = cmd . " -a " . options . a:target
+  let full_command = cmd . " -A " . options . a:target
   call ClearEchoAndExecute(full_command)
 endfunction
 

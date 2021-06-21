@@ -167,6 +167,9 @@ endfunction
 " rm file
 nnoremap <leader>rm :Delete<cr>
 
+" Last buffer
+nnoremap <leader>o <c-^>
+
 " escape alias
 inoremap jj <esc>:w<cr>
 inoremap jJ <esc>:w<cr>

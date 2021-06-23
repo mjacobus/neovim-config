@@ -4,9 +4,9 @@ vim.cmd [[autocmd BufReadPost fugitive://* set bufhidden=delete]]
 
 nnoremap('<Leader>gac', ':Gcommit -am ""<LEFT>')
 nnoremap('<Leader>gc', ':Gcommit -m ""<LEFT>')
-nnoremap('<Leader>gs', ':Gstatus<CR>')
+nnoremap('<Leader>gs', ':Git status<CR>')
 nnoremap('<leader>gw', ':Gwrite<cr>')
-nnoremap('<leader>gb', ':Gblame<cr>')
+nnoremap('<leader>gb', ':Git blame<cr>')
 
 -- Resolving conflics
 -- Vimcasts #33

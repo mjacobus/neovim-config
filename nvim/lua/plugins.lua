@@ -20,7 +20,6 @@ require('packer').startup(function(use)
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    requires = {{ 'Yggdroot/indentLine' }},
     config = [[require('settings.indentline')]]
   }
 

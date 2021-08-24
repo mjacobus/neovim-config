@@ -11,6 +11,10 @@ if [[ ! -d ~/.local/share/nvim/packer.nvim ]]; then
   git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/packer.nvim
 fi
 
+if [[ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]]; then
+  git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
+
 TARGET_DIR=$HOME/.config/nvim
 
 REPO_FOLDER="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"

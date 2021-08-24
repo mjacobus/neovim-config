@@ -178,7 +178,16 @@ snippet riva "Reek InstanceVariableAssumption"
 :reek:InstanceVariableAssumption
 endsnippet
 
-snippet rd "Reek LongParameterList"
+snippet rdel "Rubocop disable RSpec/ExampleLength"
+rubocop:disable RSpec/ExampleLength
+endsnippet
+
+snippet reel "Rubocop enable RSpec/ExampleLength"
+rubocop:enable RSpec/ExampleLength
+endsnippet
+
+
+snippet rd "Rubocop Disable"
 rubocop:disable ${1:Metrics}/${2:ParameterList}
 endsnippet
 
@@ -216,8 +225,12 @@ snippet rtms "Reek TooManyStatements"
 rubocop:disable Metrics/MethodLength
 endsnippet
 
-snippet rml "Rubocop MethodLength"
+snippet rdml "Rubocop disable MethodLength"
 rubocop:disable Metrics/MethodLength
+endsnippet
+
+snippet reml "Rubocop enable MethodLength"
+rubocop:enable Metrics/MethodLength
 endsnippet
 
 snippet rumn "Reek UncommunicativeMethodName"
@@ -270,8 +283,12 @@ snippet rnmd "Rubocop nested method definition"
 rubocop:disable NestedMethodDefinition
 endsnippet
 
-snippet rabcs "Rubocop AbcSize"
+snippet rda "Rubocop disable AbcSize"
 rubocop:disable Metrics/AbcSize
+endsnippet
+
+snippet rea "Rubocop disable AbcSize"
+rubocop:enable Metrics/AbcSize
 endsnippet
 
 # https://www.rubydoc.info/gems/yard/file/docs/Tags.md

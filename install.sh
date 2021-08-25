@@ -31,6 +31,7 @@ fi
 # https://github.com//wiki/Build-and-Run-(Standalone)
 
 ln -sf $SOURCE_DIR $TARGET_DIR
-nvim +PackerInstall +q
+
+echo "RUN: nvim +PackerInstall +q"
 
 npm i -g bash-language-server

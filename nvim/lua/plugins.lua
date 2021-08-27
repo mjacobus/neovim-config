@@ -49,6 +49,11 @@ require('packer').startup(function(use)
     'neovim/nvim-lspconfig',
     config = [[require('settings.lsp')]]
   }
+  use 'folke/tokyonight.nvim'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons'
+  }
   use 'nvim-lua/completion-nvim'
   use 'rking/ag.vim'
   use 'weierophinney/argumentrewrap'

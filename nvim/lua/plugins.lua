@@ -52,7 +52,8 @@ require('packer').startup(function(use)
   use 'folke/tokyonight.nvim'
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons'
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = [[require('settings.vim-tree')]]
   }
   use 'nvim-lua/completion-nvim'
   use 'rking/ag.vim'

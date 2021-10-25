@@ -50,16 +50,20 @@ require('packer').startup(function(use)
     config = [[require('settings.lsp')]]
   }
   use 'folke/tokyonight.nvim'
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = [[require('settings.vim-tree')]]
-  }
+  -- use {
+  --   'kyazdani42/nvim-tree.lua',
+  --   requires = 'kyazdani42/nvim-web-devicons',
+  --   config = [[require('settings.vim-tree')]]
+  -- }
   use 'nvim-lua/completion-nvim'
   use 'rking/ag.vim'
   use 'weierophinney/argumentrewrap'
   use 'tpope/vim-eunuch'
-  use 'scrooloose/nerdtree'
+  use {
+    'scrooloose/nerdtree',
+    config = [[require('settings.nerdree')]]
+  }
+
   use 'godlygeek/tabular'
   use {
     'tpope/vim-fugitive',

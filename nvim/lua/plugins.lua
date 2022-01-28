@@ -45,10 +45,6 @@ require('packer').startup(function(use)
     'tyru/open-browser-github.vim',
     requires = {{'tyru/open-browser.vim'}}
   }
-  use {
-    'neovim/nvim-lspconfig',
-    config = [[require('settings.lsp')]]
-  }
   use 'folke/tokyonight.nvim'
   -- use {
   --   'kyazdani42/nvim-tree.lua',

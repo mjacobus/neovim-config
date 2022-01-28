@@ -2,4 +2,5 @@
 
 set -ev
 
-stow -t ~/.config/nvim nvim
+mkdir -p ~/.config/nvim
+stow -t ~/.config/nvim nvim -v 2

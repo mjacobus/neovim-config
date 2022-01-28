@@ -1,19 +1,27 @@
 My neovim config
 ---------------------
 
-From scratch.
+
 
 
 ## Install
 
-Install packer
+If not installed yet, install [stow](https://www.gnu.org/software/stow/).
+
 
 ```
-git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+brew install stow
 ```
 
+And then run the installation script
+
 ```
-git clone https://github.com/mjacobus/neovim-config SOME_FOLDER
-cd SOME_FOLDER
 ./install.sh
+```
+
+## Installing neovim HEAD with brew
+
+```
+brew install --HEAD neovim
+pip install neovim # install neovim provider for UltiSnipets
 ```

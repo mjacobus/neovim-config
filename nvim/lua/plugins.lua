@@ -55,10 +55,11 @@ require('packer').startup(function(use)
   use 'rking/ag.vim'
   use 'weierophinney/argumentrewrap'
   use 'tpope/vim-eunuch'
-  use {
-    'scrooloose/nerdtree',
-    config = [[require('settings.nerdree')]]
-  }
+  -- Temporarily disable nerdtree
+  -- use {
+  --   'scrooloose/nerdtree',
+  --   config = [[require('settings.nerdree')]]
+  -- }
 
   use 'godlygeek/tabular'
   use {
@@ -78,6 +79,19 @@ require('packer').startup(function(use)
     run = [[ :call fzf#install() ]],
     config = [[require('settings.fzf')]],
     requires = { 'junegunn/fzf.vim' }
+  }
+
+  -- use { 'neovim/nvim-lspconfig' }
+
+  use { 'hrsh7th/nvim-cmp',
+    config = [[require('settings.cmp')]],
+    requires = {
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'quangnguyen30192/cmp-nvim-ultisnips' }
+    }
   }
 
   -- ruby

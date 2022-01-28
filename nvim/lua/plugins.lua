@@ -61,7 +61,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-eunuch'
   use {
     'scrooloose/nerdtree',
-    config = [[require('settings.nerdree')]]
+    config = [[require('settings.nerdtree')]]
   }
 
   use 'godlygeek/tabular'
